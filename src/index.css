@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 4%;
+    --foreground: 0 0% 90%;
+    --card: 0 0% 6%;
+    --card-foreground: 0 0% 90%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 0 0% 90%;
+    --primary: 142 71% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 90%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 142 71% 45%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 142 71% 45%;
+    --radius: 0.5rem;
+    
+    /* Custom Trading Colors */
+    --bullish: 142 71% 45%;
+    --bearish: 0 84% 60%;
+    --chart-bg: 0 0% 4%;
+    --grid-line: 0 0% 12%;
+    --panel-bg: 0 0% 6%;
+    --hover-bg: 0 0% 10%;
+    --active-bg: 0 0% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted));
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground));
+  }
+  
+  .text-bullish {
+    color: hsl(var(--bullish));
+  }
+  
+  .text-bearish {
+    color: hsl(var(--bearish));
+  }
+  
+  .bg-bullish {
+    background-color: hsl(var(--bullish));
+  }
+  
+  .bg-bearish {
+    background-color: hsl(var(--bearish));
+  }
+  
+  .border-bullish {
+    border-color: hsl(var(--bullish));
+  }
+  
+  .border-bearish {
+    border-color: hsl(var(--bearish));
+  }
+  
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-md border border-border;
+  }
+  
+  .gradient-border {
+    position: relative;
+  }
+  
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, transparent 50%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+  
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .price-up {
+    animation: priceUp 0.5s ease-out;
+  }
+  
+  .price-down {
+    animation: priceDown 0.5s ease-out;
+  }
+  
+  @keyframes priceUp {
+    0% {
+      background-color: hsl(var(--bullish) / 0.3);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+  
+  @keyframes priceDown {
+    0% {
+      background-color: hsl(var(--bearish) / 0.3);
+    }
+    100% {
+      background-color: transparent;
+    }
+  }
+}
+
+/* TradingView-like Chart Styles */
+.chart-container {
+  @apply relative w-full h-full overflow-hidden;
+  background: hsl(var(--chart-bg));
+}
+
+.chart-grid {
+  @apply absolute inset-0 pointer-events-none;
+  background-image: 
+    linear-gradient(to right, hsl(var(--grid-line)) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--grid-line)) 1px, transparent 1px);
+  background-size: 80px 40px;
+}
+
+/* Order Book Styles */
+.order-book-row {
+  @apply flex items-center justify-between px-2 py-0.5 text-xs;
+}
+
+.order-book-row:hover {
+  background: hsl(var(--hover-bg));
+}
+
+.order-book-size-bar {
+  @apply absolute right-0 top-0 bottom-0 opacity-20;
+}
+
+/* Ticker Styles */
+.ticker-item {
+  @apply inline-flex items-center gap-2 px-3 py-1 text-sm whitespace-nowrap;
+}
+
+.ticker-item:not(:last-child) {
+  @apply border-r border-border;
+}
+
+/* Tab Styles */
+.tab-active {
+  @apply relative;
+}
+
+.tab-active::after {
+  content: '';
+  @apply absolute bottom-0 left-0 right-0 h-0.5 bg-primary;
+}
+
+/* Panel Styles */
+.panel {
+  @apply bg-card border border-border rounded-lg overflow-hidden;
+}
+
+.panel-header {
+  @apply flex items-center justify-between px-4 py-3 border-b border-border bg-muted/30;
+}
+
+.panel-content {
+  @apply p-4;
+}
+
+/* Button Variants */
+.btn-buy {
+  @apply bg-bullish text-white hover:opacity-90 transition-opacity;
+}
+
+.btn-sell {
+  @apply bg-bearish text-white hover:opacity-90 transition-opacity;
+}
+
+/* Form Styles */
+.input-trading {
+  @apply bg-muted border-border focus:border-primary focus:ring-1 focus:ring-primary;
+}
+
+/* Status Indicators */
+.status-online {
+  @apply w-2 h-2 rounded-full bg-bullish animate-pulse;
+}
+
+.status-offline {
+  @apply w-2 h-2 rounded-full bg-muted-foreground;
+}
+
+/* Tooltip */
+.trading-tooltip {
+  @apply absolute z-50 px-2 py-1 text-xs bg-popover border border-border rounded shadow-lg;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    @apply fixed inset-y-0 left-0 z-50 transform -translate-x-full transition-transform;
+  }
+  
+  .sidebar.open {
+    @apply translate-x-0;
+  }
+}
