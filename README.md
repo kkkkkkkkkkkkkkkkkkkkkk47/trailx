@@ -1,73 +1,93 @@
-# React + TypeScript + Vite
+# TrailX Trading Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern trading platform built with React, TypeScript, and Tailwind CSS. Available as both a web app and native mobile app.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Real-time market data and price updates
+- Interactive candlestick charts with technical indicators
+- Multi-asset support (Stocks, Forex, Crypto, Commodities, Indices)
+- Order management (Market, Limit, Stop orders)
+- Customizable watchlists and favorites
+- Market thematics and curated lists
+- Responsive design for desktop and mobile
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Tailwind CSS
+- Vite
+- Capacitor (for mobile apps)
+- Radix UI components
+- Lightweight Charts
 
-## Expanding the ESLint configuration
+## Development
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Web App
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```bash
+# Install dependencies
+npm install
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# Run development server
+npm run dev
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build for production
+npm run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Mobile App
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Build web assets
+npm run build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Sync with native projects
+npx cap sync
+
+# Open in Android Studio
+npx cap open android
+
+# Open in Xcode (macOS only)
+npx cap open ios
 ```
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── instrument/     # Instrument detail views
+│   ├── layout/         # Header, Sidebar
+│   ├── modules/        # Markets, Quotes modules
+│   └── ui/            # Reusable UI components
+├── data/              # Mock data
+├── store/             # State management
+└── types/             # TypeScript types
+```
+
+## Mobile App Setup
+
+The app uses Capacitor to create native iOS and Android apps from the web codebase.
+
+### Android
+
+1. Install [Android Studio](https://developer.android.com/studio)
+2. Run `npm run build` to build web assets
+3. Run `npx cap sync android` to sync with Android project
+4. Run `npx cap open android` to open in Android Studio
+5. Build and run from Android Studio
+
+### iOS (macOS only)
+
+1. Install [Xcode](https://developer.apple.com/xcode/)
+2. Run `npm run build` to build web assets
+3. Run `npx cap add ios` to add iOS platform
+4. Run `npx cap sync ios` to sync with iOS project
+5. Run `npx cap open ios` to open in Xcode
+6. Build and run from Xcode
+
+## License
+
+MIT
