@@ -21,7 +21,11 @@ function MainContent() {
       {/* Main Content Area */}
       <div className={cn(
         'flex-1 flex flex-col min-w-0 transition-all duration-300',
-        sidebarCollapsed ? 'ml-16' : 'ml-64'
+        // Desktop: account for sidebar width
+        'lg:ml-16 lg:mr-0',
+        !sidebarCollapsed && 'lg:ml-64',
+        // Mobile: always full width
+        'ml-0'
       )}>
         {/* Header */}
         <Header />

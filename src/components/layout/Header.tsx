@@ -5,7 +5,8 @@ import {
   User,
   TrendingUp,
   TrendingDown,
-  Clock
+  Clock,
+  Menu
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTrading } from '@/store/TradingContext';
@@ -22,9 +23,13 @@ import {
 import type { Security } from '@/types';
 
 export function Header() {
-  const { state, selectSecurity } = useTrading();
+  const { state, selectSecurity, dispatch } = useTrading();
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const toggleSidebar = () => {
+    dispatch({ type: 'TOGGLE_SIDEBAR' });
+  };
 
   const filteredSecurities = searchQuery
     ? state.securities.filter(
@@ -52,9 +57,19 @@ export function Header() {
   };
 
   return (
-    <header className="h-14 bg-card border-b border-border flex items-center justify-between px-4">
-      {/* Left Section - Search */}
-      <div className="flex items-center gap-4 flex-1 max-w-xl">
+    <header className="h-14 bg-card border-b border-border flex items-center justify-between px-4 flex-shrink-0">
+      {/* Left Section - Menu + Search */}
+      <div className="flex items-center gap-2 flex-1 max-w-xl">
+        {/* Mobile menu button */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleSidebar}
+          className="lg:hidden h-9 w-9"
+        >
+          <Menu className="w-5 h-5" />
+        </Button>
+        
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input

@@ -44,14 +44,28 @@ export function Sidebar() {
   };
 
   return (
-    <aside
-      className={cn(
-        'fixed left-0 top-0 flex flex-col h-screen bg-card border-r border-border transition-all duration-300 z-30',
-        sidebarCollapsed ? 'w-16' : 'w-64'
+    <>
+      {/* Mobile overlay */}
+      {!sidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-20 lg:hidden"
+          onClick={toggleSidebar}
+        />
       )}
-    >
+      
+      <aside
+        className={cn(
+          'fixed left-0 top-0 flex flex-col h-screen bg-card border-r border-border transition-all duration-300 z-30',
+          // Desktop
+          'lg:translate-x-0',
+          sidebarCollapsed ? 'lg:w-16' : 'lg:w-64',
+          // Mobile
+          'w-64',
+          sidebarCollapsed ? '-translate-x-full' : 'translate-x-0'
+        )}
+      >
       {/* Logo */}
-      <div className="flex items-center justify-between h-14 px-4 border-b border-border">
+      <div className="flex items-center justify-between h-14 px-4 border-b border-border flex-shrink-0">
         {!sidebarCollapsed && (
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
@@ -65,28 +79,19 @@ export function Sidebar() {
             <LineChart className="w-5 h-5 text-primary-foreground" />
           </div>
         )}
-        {!sidebarCollapsed && (
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleSidebar}
-            className="h-8 w-8"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </Button>
-        )}
-      </div>
-
-      {sidebarCollapsed && (
         <Button
           variant="ghost"
           size="icon"
           onClick={toggleSidebar}
-          className="h-8 w-8 mx-auto mt-2"
+          className="h-8 w-8"
         >
-          <ChevronRight className="w-4 h-4" />
+          {sidebarCollapsed ? (
+            <ChevronRight className="w-4 h-4" />
+          ) : (
+            <ChevronLeft className="w-4 h-4" />
+          )}
         </Button>
-      )}
+      </div>
 
       <ScrollArea className="flex-1 py-4">
         {/* Main Navigation */}
@@ -190,6 +195,6 @@ export function Sidebar() {
           {!sidebarCollapsed && <span className="text-sm font-medium">Settings</span>}
         </button>
       </div>
-    </aside>
+    </>
   );
 }

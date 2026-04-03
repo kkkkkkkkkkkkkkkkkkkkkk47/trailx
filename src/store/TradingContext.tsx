@@ -86,7 +86,7 @@ const initialState: TradingState = {
   chartTabs: [defaultChartTab],
   activeChartTabId: 'tab-1',
   chartSettings: defaultChartSettings,
-  sidebarCollapsed: false,
+  sidebarCollapsed: typeof window !== 'undefined' && window.innerWidth < 1024, // Closed on mobile by default
   darkMode: true,
   showOrderPanel: false,
   priceUpdates: new Map(),

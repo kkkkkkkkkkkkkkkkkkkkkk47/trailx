@@ -75,9 +75,9 @@ export function OrderSection({ security }: OrderSectionProps) {
   };
 
   return (
-    <div className="h-full flex">
+    <div className="h-full flex flex-col lg:flex-row">
       {/* Order Form */}
-      <div className="flex-1 p-6 overflow-auto">
+      <div className="flex-1 p-4 sm:p-6 overflow-y-auto scrollbar-hide">
         <div className="max-w-2xl mx-auto space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
@@ -306,7 +306,7 @@ export function OrderSection({ security }: OrderSectionProps) {
       </div>
 
       {/* Side Panel - Market Info */}
-      <div className="w-80 border-l border-border bg-muted/30 p-6 hidden lg:block">
+      <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-border bg-muted/30 p-4 sm:p-6">
         <h3 className="font-semibold mb-4">Market Info</h3>
         
         <div className="space-y-4">

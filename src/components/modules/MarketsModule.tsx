@@ -113,10 +113,10 @@ export function MarketsModule() {
       {/* Content */}
       <div className="flex-1 overflow-y-auto scrollbar-hide">
         {viewMode === 'list' ? (
-          <div className="p-4">
+          <div className="p-2 sm:p-4">
             <div className="bg-card border border-border rounded-lg overflow-hidden">
-              {/* Table Header */}
-              <div className="grid grid-cols-12 gap-4 px-4 py-3 bg-muted/50 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+              {/* Table Header - Hidden on mobile */}
+              <div className="hidden md:grid grid-cols-12 gap-4 px-4 py-3 bg-muted/50 text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 <div className="col-span-1">Fav</div>
                 <div className="col-span-2">Symbol</div>
                 <div className="col-span-3">Name</div>
@@ -131,7 +131,7 @@ export function MarketsModule() {
                   <div
                     key={security.id}
                     onClick={() => handleSecurityClick(security)}
-                    className="grid grid-cols-12 gap-4 px-4 py-3 items-center hover:bg-muted/50 cursor-pointer transition-colors"
+                    className="grid grid-cols-12 gap-2 sm:gap-4 px-2 sm:px-4 py-3 items-center hover:bg-muted/50 cursor-pointer transition-colors"
                   >
                     <div className="col-span-1">
                       <button
@@ -144,42 +144,42 @@ export function MarketsModule() {
                           security.isFavorite ? 'text-yellow-500' : 'text-muted-foreground hover:text-yellow-500'
                         )}
                       >
-                        <Star className={cn('w-4 h-4', security.isFavorite && 'fill-current')} />
+                        <Star className={cn('w-3 h-3 sm:w-4 sm:h-4', security.isFavorite && 'fill-current')} />
                       </button>
                     </div>
-                    <div className="col-span-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">{security.symbol}</span>
-                        <Badge variant="outline" className="text-xs">
+                    <div className="col-span-5 md:col-span-2">
+                      <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-2">
+                        <span className="font-semibold text-sm sm:text-base">{security.symbol}</span>
+                        <Badge variant="outline" className="text-xs w-fit">
                           {security.category}
                         </Badge>
                       </div>
                     </div>
-                    <div className="col-span-3">
+                    <div className="hidden md:block md:col-span-3">
                       <span className="text-sm text-muted-foreground">{security.name}</span>
                     </div>
-                    <div className="col-span-2 text-right">
-                      <span className="font-mono font-medium">
+                    <div className="col-span-3 md:col-span-2 text-right">
+                      <span className="font-mono font-medium text-sm sm:text-base">
                         {security.priceStats.close.toFixed(2)}
                       </span>
                     </div>
-                    <div className="col-span-2 text-right">
+                    <div className="col-span-3 md:col-span-2 text-right">
                       <div className={cn(
-                        'flex items-center justify-end gap-1',
+                        'flex items-center justify-end gap-0.5 sm:gap-1',
                         security.priceStats.change >= 0 ? 'text-bullish' : 'text-bearish'
                       )}>
                         {security.priceStats.change >= 0 ? (
-                          <TrendingUp className="w-3 h-3" />
+                          <TrendingUp className="w-2 h-2 sm:w-3 sm:h-3" />
                         ) : (
-                          <TrendingDown className="w-3 h-3" />
+                          <TrendingDown className="w-2 h-2 sm:w-3 sm:h-3" />
                         )}
-                        <span className="font-mono">
+                        <span className="font-mono text-xs sm:text-sm">
                           {security.priceStats.change >= 0 ? '+' : ''}
                           {security.priceStats.changePercent.toFixed(2)}%
                         </span>
                       </div>
                     </div>
-                    <div className="col-span-2 text-right">
+                    <div className="hidden md:block md:col-span-2 text-right">
                       <span className="font-mono text-sm text-muted-foreground">
                         {(security.priceStats.volume / 1000000).toFixed(1)}M
                       </span>
